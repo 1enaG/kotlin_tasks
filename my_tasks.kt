@@ -12,6 +12,11 @@ fun main(){
     val predicate2 : (Int) -> Boolean = { a:Int -> a%2 == 0 }
 
     println(getListByConditions(list2, predicate1, predicate2)) //result: [4, 6, 8, 10]
+    
+    //task 3:
+    var arr = listOf(1, -2, 3, 12, -5, 8, 4, -6, -3)
+    println(getLargestSequence(arr)) //result: [3, 12, -5, 8, 4]
+    
 
 }
 
@@ -43,3 +48,75 @@ fun <R> getListByConditions(list:List<R>, vararg conditions:Predicate<R>):Mutabl
     }
     return resultArr
 }
+
+//task 3:
+fun getLargestSequence(arr :List<Int>): List<Int>{
+    var sum = arr.sum()
+    var sequence = arr
+    println(sum)
+    println(sequence)
+
+    for(startIdx in arr.indices){ //all starting elems
+        for(numOfElems in 1 until (arr.size-startIdx)) {//(numTillEnd) - all possible sequence lengths
+            val endIdx = startIdx + numOfElems
+            val tempArr = arr.slice(startIdx..endIdx)
+
+            val tempSum = tempArr.sum()
+            if(tempSum >= sum){
+                sum = tempSum
+                sequence = tempArr
+            }
+            println("startIdx=$startIdx, endIdx=$endIdx, sum=$tempSum")
+        }
+    }
+    println("largest sum = $sum")
+    return sequence
+
+}
+
+
+/*
+Output for task 3: 
+12
+[1, -2, 3, 12, -5, 8, 4, -6, -3]
+startIdx=0, endIdx=1, sum=-1
+startIdx=0, endIdx=2, sum=2
+startIdx=0, endIdx=3, sum=14
+startIdx=0, endIdx=4, sum=9
+startIdx=0, endIdx=5, sum=17
+startIdx=0, endIdx=6, sum=21
+startIdx=0, endIdx=7, sum=15
+startIdx=0, endIdx=8, sum=12
+startIdx=1, endIdx=2, sum=1
+startIdx=1, endIdx=3, sum=13
+startIdx=1, endIdx=4, sum=8
+startIdx=1, endIdx=5, sum=16
+startIdx=1, endIdx=6, sum=20
+startIdx=1, endIdx=7, sum=14
+startIdx=1, endIdx=8, sum=11
+startIdx=2, endIdx=3, sum=15
+startIdx=2, endIdx=4, sum=10
+startIdx=2, endIdx=5, sum=18
+startIdx=2, endIdx=6, sum=22
+startIdx=2, endIdx=7, sum=16
+startIdx=2, endIdx=8, sum=13
+startIdx=3, endIdx=4, sum=7
+startIdx=3, endIdx=5, sum=15
+startIdx=3, endIdx=6, sum=19
+startIdx=3, endIdx=7, sum=13
+startIdx=3, endIdx=8, sum=10
+startIdx=4, endIdx=5, sum=3
+startIdx=4, endIdx=6, sum=7
+startIdx=4, endIdx=7, sum=1
+startIdx=4, endIdx=8, sum=-2
+startIdx=5, endIdx=6, sum=12
+startIdx=5, endIdx=7, sum=6
+startIdx=5, endIdx=8, sum=3
+startIdx=6, endIdx=7, sum=-2
+startIdx=6, endIdx=8, sum=-5
+startIdx=7, endIdx=8, sum=-9
+
+largest sum = 22
+[3, 12, -5, 8, 4]
+ */
+

@@ -17,6 +17,11 @@ fun main(){
     var arr = listOf(1, -2, 3, 12, -5, 8, 4, -6, -3)
     println(getLargestSequence(arr)) //result: [3, 12, -5, 8, 4]
     
+    //task 4:
+    var arr2 = listOf(4, 6, 10, 24)
+    //println(getGcdOfList(arr2)) // result: 2 
+    println(getLcmOfList(arr2)) //result: 120
+    
 
 }
 
@@ -73,6 +78,44 @@ fun getLargestSequence(arr :List<Int>): List<Int>{
     return sequence
 
 }
+
+//task 4:
+fun getLcmOfList(arr:List<Int>):Int{ //Least Common Multiple
+    var commonLCM :Int = arr[0]
+    for(elem in arr){
+        commonLCM = getLCM(commonLCM, elem)
+    }
+    return commonLCM
+}
+
+//Euclid's algorithm for finding the Greatest Common Denominator of two numbers:
+fun getGCD(a:Int, b:Int):Int{
+    var m = a
+    var n = b
+    while(m != n){
+        if(m > n){
+            m = m-n
+        }else{
+            n = n-m
+        }
+    }
+    return m
+}
+
+fun getGcdOfList(arr:List<Int>): Int{
+    var commonGCD :Int = arr[0]
+    for(elem in arr){
+        commonGCD = getGCD(commonGCD, elem)
+    }
+    return commonGCD
+}
+
+//Formula: LCM = ( a * b ) / GCD
+fun getLCM(a :Int, b: Int, ):Int = (a * b)/getGCD(a, b)
+
+
+
+
 
 
 /*
